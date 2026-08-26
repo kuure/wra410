@@ -1,1 +1,0 @@
-# javascript-cursor-magnify
