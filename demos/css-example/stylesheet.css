@@ -1,7 +1,11 @@
 /*
  
 	this selector styles the body element - the main container - using the
-	hsl color format: https://www.w3schools.com/colors/colors_hsl.asp
+	hsl color format: 
+
+	https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/hsl
+
+	https://www.w3schools.com/colors/colors_hsl.asp
  
 */
 
@@ -9,10 +13,9 @@ body {
 	background-color: hsl(323, 100%, 50%);
 	max-width: 80%;
 	
-/*
-	margin: 6rem auto 2rem auto;
-*/
 
+
+/* explicit margin rules: */
 /*
 	margin-left: auto;
 	margin-right: auto;
@@ -20,14 +23,21 @@ body {
 	margin-bottom: 2rem;
 */
 
+/* shorthand for above: */
+/*
+	margin: 6rem auto 2rem auto;
+*/
+
+
 }
 
 
 img {
-	width: 20rem;
 	max-width: 100%;
 }
-
+.photo {
+	width: 20rem;
+}
 
 header,main {
 	padding: 2rem;
