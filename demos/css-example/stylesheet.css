@@ -12,22 +12,19 @@
 body {
 	background-color: hsl(323, 100%, 50%);
 	max-width: 80%;
-	
 
 
-/* explicit margin rules: */
-/*
+
+	/* explicit margin rules: */
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 6rem;
 	margin-bottom: 2rem;
-*/
 
-/* shorthand for above: */
-/*
+	/* shorthand for above: */
+	/*
 	margin: 6rem auto 2rem auto;
 */
-
 
 }
 
@@ -35,11 +32,13 @@ body {
 img {
 	max-width: 100%;
 }
+
 .photo {
 	width: 20rem;
 }
 
-header,main {
+header,
+main {
 	padding: 2rem;
 }
 
