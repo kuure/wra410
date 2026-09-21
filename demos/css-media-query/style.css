@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+
+/* the narrow screen style, which should be the default  */
+nav {
+	background-color: pink;
+}
+
+
+/* IF the screen is AT LEAST 769px... */ 
+@media screen and (min-width: 769px) {
+
+	nav {
+		/* restating a rule allows you to override the default value for larger screen sizes */
+		background-color: lightblue;
+
+		/* you could also add rules that aren't in the default */
+		font-weight: bold;
+	}
+
+	/* in fact, you can add whole other sets of rules that aren't even in the default... */
+	body {
+		background-color: lightyellow;
+	}
+}
