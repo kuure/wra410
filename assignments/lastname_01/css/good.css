@@ -1,0 +1,91 @@
+/* google fonts need to be put here starting with '@import' */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
+
+/*
+	css reset - this sets ALL elements to have zero padding and margin, 
+	and to display in the more logical border-box style
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+/*
+	start with the outermost container, the <nav>
+	this controls the layout of two elements - the .logo div and the <ul>
+	remember, this is for the NARROW view - the default should be for mobile devices
+*/
+nav {
+	display: flex;
+	flex-direction: column;
+	font-family: "Inter", sans-serif;
+	padding: 1rem;
+}
+
+
+/*
+	style the logo div
+*/
+.logo {
+	background-color: hsl(300, 100%, 50%);
+	width: 6rem;
+	height: 6rem;
+}
+
+/*
+	the text in the logo
+*/
+.logo h1 {
+	color: white;
+	font-weight: bold;
+}
+
+/* 
+	style only <ul> elements that are inside of the <nav> element
+*/
+nav ul {
+	display: flex;
+	flex-direction: column;
+}
+
+
+/*
+	the actual links - these are the clickable elements
+	- setting to 'inline-block' fixes things, just do it
+*/
+nav ul li a {
+	display: inline-block;
+	padding: 1rem;
+}
+
+
+/*
+	change  the background color of the current and hover versions of the links 
+*/
+nav ul li a.current,
+nav ul li a:hover {
+	background-color: hsl(300 100% 50%);
+}
+
+
+/*
+	also, shift the layout of the hovering element slightly 
+*/
+nav ul li a:hover {
+	transform: translate(0.1rem, 0.1rem);
+}
+
+
+
+/* the enahanced, wide screen version - IF the page is wider than 768px */
+@media screen and (min-width: 769px) {
+
+	/* set the flex layouts to the default "row" directions */
+	nav,
+	nav ul {
+		flex-direction: row;
+	}
+}
