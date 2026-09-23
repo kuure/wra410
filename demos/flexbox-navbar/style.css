@@ -5,24 +5,54 @@
 *::before,
 *::after {
 	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
 }
 
 
 /* the narrow screen style, which should be the default  */
 nav {
-	background-color: hsl(0, 0%, 0%);
+	font-family: "Inter", sans-serif;
+	background-color: hsl(0, 92%, 45%);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 }
 
 nav a {
 	color: hsl(100, 0%, 100%);
 	text-decoration: none;
+	padding: 1rem;
+	display: inline-block;
+	transition: all .2s ease-in .2s;
 }
 
-nav ul {}
+nav a:hover,
+nav a.current {
+	color: hsl(88, 100%, 50%);
+	font-weight: bold;
+}
 
-.logo {}
+nav ul {
+	background-color:hsl(0, 64%, 71%);
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+}
+
+
+.logo {
+	color: hsl(100, 0%, 100%);
+	font-weight: bold;
+	padding: 1rem;
+}
 
 /* IF the screen is AT LEAST 769px... */
 @media screen and (min-width: 769px) {
-	nav ul {}
+	nav, 
+	nav ul {
+		flex-direction: row;
+	}
 }
