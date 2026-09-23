@@ -1,3 +1,6 @@
+/* google fonts need to be put here starting with '@import' */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
+
 *,
 *::before,
 *::after {
@@ -17,10 +20,9 @@ nav a {
 
 nav ul {}
 
+.logo {}
 
 /* IF the screen is AT LEAST 769px... */
 @media screen and (min-width: 769px) {
-	nav ul {
-		flex-direction: row;
-	}
+	nav ul {}
 }
