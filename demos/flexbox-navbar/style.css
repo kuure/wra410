@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+
+/* the narrow screen style, which should be the default  */
+nav {
+	background-color: hsl(0, 0%, 0%);
+}
+
+nav a {
+	color: hsl(100, 0%, 100%);
+	text-decoration: none;
+}
+
+nav ul {}
+
+
+/* IF the screen is AT LEAST 769px... */
+@media screen and (min-width: 769px) {
+	nav ul {
+		flex-direction: row;
+	}
+}
