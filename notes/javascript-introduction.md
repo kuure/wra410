@@ -1,4 +1,4 @@
-# Getting Started With JavaScript"
+# Getting Started With JavaScript
 
 According to Wikipedia:
 
