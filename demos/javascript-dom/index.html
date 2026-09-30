@@ -1,58 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <head>
-  <title>WRA410  JavaScript Introduction</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WRA410 JavaScript Introduction</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
 <body>
 
-<h1>The JavaScript Document Object Model</h1>
+	<h1>The JavaScript Document Object Model</h1>
+
+	<p>This is the original text</p>
 
 
-<p class="demo">This is the original text</p>
+	<ul>
+		<li>Item One</li>
+		<li>Item Two</li>
+		<li>Item Three</li>
+	</ul>
 
 
-<ul>
-	<li>Bullet Item One</li>
-	<li>Bullet Item Two</li>
-	<li>Bullet Item Three</li>
-</ul>
+	<script>
+
+		// console.log() is a built in tool that is super useful
+		// for doing javascript development - it allows you to print
+		// anything to the dev tools console
+
+		// print out a string of text:
+		console.log("Hello from the console");
 
 
-<ol>
-	<li>Number Item One</li>
-	<li>Number Item Two</li>
-	<li>Number Item Three</li>
-</ol>
+		// examine the entire document, aka the current page
+		console.log(document);
+
+
+		// for many things in js, you can add a . with a property name
+		// to show only part of something; in this case you can
+		// see just the "location" property of the entire document...
+		console.log(document.location);
+
+		// variables are a way to give a nickname to something that 
+		// you can refer to later
+
+		// variables using let can be re-assigned:
+		let letVar = "This is my _let_ variable's value";
+		console.log(letVar);
+
+		letVar = "I gave this a new value";
+		console.log(letVar);
+
+
+		// it's usually better to use 'const' to create variables; the 
+		// items these refer to can never be changed which is a security
+		// feature
+		const constVar = "this is a constant and cannot be changed";
+		console.log(constVar);
+
+		// constVar = "uncomment this line and you'll get an error..."
 
 
 
-<script>
-
-	// this is whole document
-	console.log(document);
-
-	// one property is its "location"":
-	console.log(document.location);
-
-	// there is a method called 'querySelector()' that allows you
-	// to grab elements using the same syntax as CSS selectors
-	const headline = document.querySelector("h1");
-
-	// you are selecting the HTML element itself
-	console.log(headline)
-
-	// it also has properties 
-	console.log(headline.innerText);
 
 
+		// there is a method called 'querySelector()' that allows you
+		// to isolate elements using the same syntax as CSS selectors
+		console.log(document.querySelector("p"))
 
-</script>
+		// it is often a good idea assign these selections to a variable name;
+		// this stores it in the program and makes it easier to refer to again
+		const headline = document.querySelector("p");
+
+
+		// you can now isolate properties of that element; the 'innerHTML'
+		// property shows you the contents of that tag
+		console.log(headline.innerHTML);
+
+
+		// finally, you can reassign these properties as needed:
+		headline.innerHTML = "this is new text from javascript";
+
+
+
+		// document.querySelector() only grabs the first item of any type; to
+		// select every match in a document you must use querySelectorAll()
+		const listItems = document.querySelectorAll("li");
+
+		// this is a special type of data called a "node list":
+		console.log(listItems);
+
+
+		// you can do something to each of these using a method called
+		// "forEach()", which uses this syntax:
+		listItems.forEach(item => console.log(item));
+		listItems.forEach(item => item.style.color = "purple");
+		listItems.forEach(item => item.style.fontWeight = "bold");
+
+
+		// you can use CSS selectors to get to each one individually as well:
+		const firstItem = document.querySelector("li:first-child");
+		const secondItem = document.querySelector("li:nth-of-type(2)");
+		const thirdItem = document.querySelector("li:last-child");
+
+		firstItem.style.backgroundColor = "yellow";
+		secondItem.style.backgroundColor = "pink";
+		thirdItem.style.backgroundColor = "lightblue";
+
+
+	</script>
 
 
 
 </body>
+
 </html>
