@@ -66,10 +66,10 @@ Using JavaScript, select elements from the document as specified and style them 
 		// the same syntax used for css...
 		const h1 = document.querySelector("h1");
 
-
+		// the first element with a class of ".green-text"
 		const green = document.querySelector(".green-text");
 
-		// any element with a class of 'cmyk'
+		// the first element with a class of 'cmyk'
 		const cmyk = document.querySelector(".cmyk");
 
 		// any image inside of an element with a class of '.bats'
@@ -83,13 +83,20 @@ Using JavaScript, select elements from the document as specified and style them 
 		const inputBox = document.querySelector("input");
 
 
-		// once you've selected it, you can change its properties,
-		// including the HTML inside the tag, or any css 'style' values...
+		// select ALL of the <p> elements
+		// and put them into a node list
+		const pTags = document.querySelectorAll("p");
+
+
+
+
 
 		// all your javascript code goes below:
 
-		// make this say 'DOM Scavenger Hunt'
-		h1.innerHTML = "DOM Scavenger Hunt";
+
+
+
+
 
 
 
