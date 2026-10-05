@@ -1,0 +1,33 @@
+body {
+	background-color: #efefef;
+	font-family: "Helvetica", "Arial", sans-serif;
+	padding: 2rem;
+	width: 80%;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+fieldset {
+	margin: 2rem;
+	border: none;
+	display: flex;
+	flex-direction: column;
+}
+
+fieldset>label {
+	font-weight: bold;
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+}
+
+fieldset>select {
+	max-width: 50%;
+}
+
+fieldset>input {
+	max-width: 80%;
+}
+
+fieldset>button {
+	max-width: 20%;
+}
