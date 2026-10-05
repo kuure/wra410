@@ -92,33 +92,54 @@ Using JavaScript, select elements from the document as specified and style them 
 		// all your javascript code goes below:
 
 		// 1. make the <h1> say 'DOM Scavenger Hunt'
+		h1.innerHTML = "DOM Scavenger Hunt";
 
 
 		// 2. Make the "green text" element have green text
+		green.style.color = "rgba(0,255,0,0.7)";
 
 
 		//  3. make ALL the paragraph elements have a border or background color
+		pTags.forEach(p => p.style.backgroundColor = "pink");
 
 
 		// 4. give this <li> a cyan background
-
+	    const cyan = cmyk.querySelector("li:first-child");
+		cyan.style.backgroundColor = "cyan";
+		
 
 		// 5. give this <li> a magenta background
+		const magenta = cmyk.querySelector("li:nth-child(2)");
+		magenta.style.backgroundColor = "magenta";
 
 
 		// 6. give this <li> a yellow background
+		const yellow = cmyk.querySelector("li:nth-child(3)");
+		yellow.style.backgroundColor = "yellow";
 
 
 		// 7. give this <li> a black background, but with white text
+		const black = cmyk.querySelector("li:last-child");
+		black.style.backgroundColor = "black";
+		black.style.color = "white";
 
 
 		// 8. this <h2> element should not be showing
+		// take out completely
+		// secondh2.style.display = "none";
+		// hide, but still take up space
+		// secondh2.style.visibility = "hidden";
+		// hide by making fully transparent
+		secondh2.style.opacity = 0;
 
 
 		// 9. make the bats look like they're standing instead of hanging...
+		bats.style.transform = "rotate(180deg)";
 
 
 		// 10. put some text in the <input>
+		inputBox.placeholder = "Placeholder Here";
+		inputBox.value = "Text set as value property";
 
 
 
