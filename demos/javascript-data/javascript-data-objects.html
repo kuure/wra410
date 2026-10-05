@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+<title>JavaScript Data Access - Objects</title>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+<h1>JavaScript Data Access - Objects</h1>
+
+<p>These examples all use the following sample object:</p>
+
+<pre><code>
+const pokeObject = {
+  name: "Pikachu",
+  type: "Electric",
+  species: "Mouse Pokemon",
+  height: "0.4m",
+  weight: "6.0kg",
+  abilities: ["static", "lightning rod"]
+}
+</code></pre>
+
+<p>Check your browser's developer console to see the output.</p>
+
+
+<script>
+
+	
+// make an object
+const pokeObject = {
+	name: "Pikachu",
+	type: "Electric",
+	species: "Mouse Pokemon",
+	height: "0.4m",
+	weight: "6.0kg",
+	abilities: ["static", "lightning rod"]
+}
+
+// access individual elements
+console.log("pokeObject.name:",pokeObject.name)
+console.log("pokeObject.type:",pokeObject.type)
+
+// the 'abilities' property has an array
+// for its values, so you have to get
+// that first and then do array stuff to
+// see each element
+console.log("pokeObject.abilities:",pokeObject.abilities)
+console.log("pokeObject.abilities[0]:",pokeObject.abilities[0])
+console.log("pokeObject.abilities[1]:",pokeObject.abilities[1])
+
+// since it's an array we can use array methods like .map()
+// this prints each value from the array with literal text
+// in front of it, and leaves the original array untouched
+pokeObject.abilities.map(ability => console.log(`pokeObject ability: ${ability}`))
+
+
+// use a for..in loop 
+for (const key in pokeObject) {
+	console.log(`For..In: ${key} = ${pokeObject[key]}`);
+}
+
+// use Object.keys
+for (const key of Object.keys(pokeObject)) {
+	console.log(`Object.keys: ${key} = ${pokeObject[key]}`)
+}
+
+// use Object.entries
+for (const [key, value] of Object.entries(pokeObject)) {
+	console.log(`Object.entries: ${key} = ${value}`);
+}
+
+
+</script>
+
+
+</body>
+</html>
+
+
+

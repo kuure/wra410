@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+	<title>JavaScript Data Access - Arrays</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+	<h1>JavaScript Data Access - Arrays</h1>
+
+	<p>These examples all use the following sample array:</p>
+
+	<pre><code>
+const pokeArray = ["Pyroar","Talonflame","Ninetails","Poliwrath","Tyranitar"]
+</code></pre>
+
+	<p>Check your browser's developer console to see the output.</p>
+
+	<p>See the <a href="wra410_javascript_data_objects.html">Object</a> examples</p>
+
+	<script>
+
+		// set up an array
+		const pokeArray = ["Pyroar", "Talonflame", "Ninetails", "Poliwrath", "Tyranitar"]
+
+		// log it to the console:
+		console.log("The initial array:", pokeArray)
+
+
+		// accessing single elements by index
+		console.log(`pokeArray Index 0: ${pokeArray[0]}`)
+		console.log(`pokeArray Index 3: ${pokeArray[3]}`)
+
+
+		// this gives you the last element 
+		console.log(`Last Item In Array: ${pokeArray[pokeArray.length - 1]}`)
+
+
+		// access each item with a for loop
+		for (let i = 0; i < pokeArray.length; i++) {
+			console.log(`For Loop Item ${i}: ${pokeArray[i]}`);
+		}
+
+		// access each element with a forEach
+		pokeArray.forEach(pokemon => console.log(`Foreach Item: ${pokemon}`))
+
+
+		// lowercase each element and put into a new array with .map()
+		const lowerCasePokeArray = pokeArray.map(pokemon => pokemon.toLowerCase())
+		console.log("lowerCasePokeArray:", lowerCasePokeArray)
+
+
+		// take each element from the array
+		// call .split() to turn a string into an array 
+		// then call .reverse() to reverse the array
+		// call .join() to make it back into a string
+		const reversePokeArray = pokeArray.map(pokemon => pokemon.split("").reverse().join(""))
+		console.log("reversePokeArray:", reversePokeArray)
+
+
+		// use filter() to only select elements that match a pattern
+		const startsWithPArray = pokeArray.filter(pokemon => pokemon.startsWith('P'))
+		console.log("startsWithPArray:", startsWithPArray)
+
+
+		// CHAIN THEM ALL TOGETHER HOLY COW 
+		const lowerCaseReverseStartsWithPArray = pokeArray
+			.filter(pokemon => pokemon.startsWith('P'))
+			.map(pokemon => pokemon.toLowerCase())
+			.map(pokemon => pokemon.split("").reverse().join(""))
+
+		console.log("lowerCaseReverseStartsWithPArray", lowerCaseReverseStartsWithPArray)
+
+	</script>
+
+</body>
+
+</html>
