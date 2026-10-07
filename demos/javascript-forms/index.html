@@ -18,7 +18,6 @@
 
 	<h1>JavaScript Form Demo</h1>
 
-	<p>As usual, check your console for output</p>
 
 	<form>
 
@@ -32,7 +31,7 @@
 
 			<label for="major" class="five">Major:</label>
 			<select id="major" class="six">
-				<option value="xa">Experience Architecture (XA)</option>
+				<option value="xa" selected>Experience Architecture (XA)</option>
 				<option value="p2w">Professional and Public Writing (P2W))</option>
 				<option value="other">Other</option>
 			</select>
@@ -42,17 +41,31 @@
 	</form>
 
 
+	<button>Clear Inputs</button>
+
+
+
+
+
 	<script>
 
 		// define variables for all the elements we need to access
-		const firstName = document.querySelector("#firstName")
-		const lastName = document.querySelector("#lastName")
-		const major = document.querySelector("#major")
+		const firstName = document.querySelector("#firstName");
+		const lastName = document.querySelector("#lastName");
+		const major = document.querySelector("#major");
+		const button = document.querySelector("button");
 
-
-		// print the contents of the box to the console when any text is entered
+		// print the contents of the firstName box to the 
+		// console when any text is entered
 		firstName.addEventListener("input", () => {
 			console.log(firstName.value)
+		})
+
+
+		// print the contents of the lastName box to the 
+		// console when any text is entered
+		lastName.addEventListener("input", () => {
+			console.log(lastName.value)
 		})
 
 
@@ -60,6 +73,7 @@
 		lastName.addEventListener("focus", () => {
 			console.log("Last Name Focused")
 		})
+
 
 		// message when you "blur" the last name input
 		lastName.addEventListener("blur", () => {
@@ -73,6 +87,14 @@
 			console.log(major.value)
 		})
 
+		// clear the form contents and reset the drop-down
+		// when the button is clicked
+		button.addEventListener("click", () => {
+			console.log("Resetting Form Fields");
+			firstName.value = "";
+			lastName.value = "";
+			major.selectedIndex = 0;
+		});
 
 	</script>
 
