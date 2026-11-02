@@ -58,3 +58,13 @@ function processData(dataArray) {
 	// single string of text with no characters between each item
 	return myHTML.join('');
 }
+
+// this gets the data, you can ignore this
+async function getData(dataUrl) {
+	const response = await fetch(dataUrl);
+	if (!response.ok) {
+		throw new Error(`An error has occured: ${response.status}`);
+	}
+	const json = await response.json();
+	return json;
+}
