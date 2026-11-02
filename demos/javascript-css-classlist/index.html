@@ -25,6 +25,17 @@
 		background-color: rgb(0,255,255);
 	}
 
+	.light {
+		color: rgb(0,0,0);
+		background-color: rgb(255,255,255);
+	}
+
+	.dark {
+		color: rgb(255,255,255);
+		background-color: rgb(0,0,0);	
+	}
+
+
 	</style>
 
 
@@ -52,13 +63,25 @@
 
 		// add your light and dark mode here...
 
+		const body = document.querySelector("body");
+		const button = document.querySelector("button");
 
+		button.addEventListener("click", () => {
 
+			// if the classList - an array of all the classes applied
+			// to an element - contains the string "light" OR has a length of zero,
+			// then set the classList value to "dark"
+			if(body.classList.contains("light") || body.classList.length === 0) {
+				body.classList = "dark";
+			}
+			// in any other situation, make set it to "light" 
+			else {
+				body.classList = "light";
+			}
+
+		});
 
 	</script>
 
-
-
 </body>
-
 </html>
