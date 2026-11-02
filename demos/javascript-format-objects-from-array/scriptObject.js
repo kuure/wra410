@@ -103,7 +103,9 @@ function processData(dataArray) {
 			<div class="pokemon">
 			<h1>${pokemon.name}</h1>
 			<h2>${pokemon.species}</h2>
-			<p>${pokemon.type.join(', ')}</p>
+				<p>Type: ${pokemon.type.join(', ')}</p>
+			</div>
+
 			<figure>
 				<img src="${pokemon.image}" alt="${pokemon.name}">
 			</figure>
