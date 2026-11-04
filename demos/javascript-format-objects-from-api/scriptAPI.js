@@ -38,6 +38,7 @@ function processData(dataArray) {
 		// for every item in the array, format parts of the object with HTML
 		// and return it to the new array called "formattedData"
 		return `
+	
 			<div class="pokemon">
 				<h1>${pokemon.name}</h1>
 				<h2>${pokemon.species}</h2>
@@ -50,6 +51,7 @@ function processData(dataArray) {
 
 		</div>
 		`;
+	
 	});
 
 	// once we've looped everything and put it into the formattatedData
