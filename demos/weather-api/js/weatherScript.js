@@ -1,71 +1,36 @@
-// the hourly forecast API
-
-// east lansing, MI
+// the hourly forecast API for east lansing, MI
 const url = 'https://api.weather.gov/gridpoints/GRR/82,39/forecast/hourly';
 
-// tucson, AZ
-//const url = "https://api.weather.gov/gridpoints/TWC/82,53/forecast/hourly"
-
-// the html container
-const container = document.querySelector('.weather');
-
-// immediately call the function that runs all the other functions
+// right when the loads, run the function named 'weatherApp()'
 weatherApp();
 
 // the main weatherApp() function
 async function weatherApp() {
-	console.log('In the main weatherApp() function');
-	// get the data
+	// call the getData() function to retrieve JSON from the URL above
+	// and store it in the variable 'data'
 	const data = await getData(url);
-	// process the data
+	// pass the returned data to the processData() function and store it
+	// in a variable named "result"
 	const result = processData(data);
-	// put it into the HTML
-	container.innerHTML = result;
+	// print the result to the console
+	console.log(result);
 }
 
 // this function takes the JSON data and formats it
 function processData(dataArray) {
-	console.log('In the processData() function');
-
-	// we want the first element of the "periods" array in the "properties" category
-	// this contains weather values for the current hour
-	const today = dataArray.properties.periods[0];
-
-	// set up a variable to be given a value later
-	let style = '';
-
-	// if the "temperature" value is less than or equal to 32
-	if (today.temperature <= 32) {
-		style = 'cold';
-	}
-	// greater than 32, less than or equal to 70
-	else if (today.temperature > 32 && today.temperature <= 70) {
-		style = 'warm';
-	}
-	// any other situation
-	else {
-		style = 'hot';
-	}
-
-	// create the actual HTML we want to display, with placeholders
-	// for the "style" value, the temp value and temp units
-	const output = `
-	<div class="${style}">
-		Temp is ${today.temperature}${today.temperatureUnit}
-	</div>
-	`;
-
-	// hand that block of html back to whatever called this function
-	return output;
+	// right now it does nothing at all, just returns it to the
+	// whatever called it...
+	return dataArray;
 }
 
-// this gets the data, you can ignore this
+// this is a helper function that retrieves the remote data,
+// then passes it back as "live" JSON data to whatever called it
+// you can ignore this, just know that the weatherApp() function calls it
 async function getData(dataUrl) {
 	const response = await fetch(dataUrl);
 	if (!response.ok) {
 		throw new Error(`An error has occured: ${response.status}`);
 	}
 	const json = await response.json();
-	console.log('in the getData() function');
 	return json;
 }
