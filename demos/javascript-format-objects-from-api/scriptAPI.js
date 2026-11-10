@@ -51,7 +51,6 @@ function processData(dataArray) {
 
 		</div>
 		`;
-	
 	});
 
 	// once we've looped everything and put it into the formattatedData
