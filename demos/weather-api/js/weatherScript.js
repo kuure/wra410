@@ -2,7 +2,7 @@
 const url = 'https://api.weather.gov/gridpoints/GRR/82,39/forecast/hourly';
 
 // the container in the html
-const container = document.querySelector(".weather");
+const container = document.querySelector('.weather');
 
 // right when the loads, run the function named 'weatherApp()'
 weatherApp();
@@ -17,19 +17,39 @@ async function weatherApp() {
 	const result = processData(data);
 	// print the result to the container element
 	container.innerHTML = result;
-	
 }
 
 // this function takes the JSON data and formats it
 function processData(dataArray) {
+	console.log(dataArray.properties.periods[0].shortForecast);
+	const today = dataArray.properties.periods[0];
 
-	console.log(dataArray.properties.periods[0].shortForecast)
-	const current = dataArray.properties.periods[0];
+	// set up a variable to be given a value later
+	let style = '';
 
-	return`
-		<p>Forecast: ${current.shortForecast}</p>
-		<p>Temperature: ${current.temperature}${current.temperatureUnit}</p>
-	`
+	// if the "temperature" value is less than or equal to 32
+	if (today.temperature <= 32) {
+		style = 'cold';
+	}
+	// greater than 32, less than or equal to 70
+	else if (today.temperature > 32 && today.temperature <= 70) {
+		style = 'warm';
+	}
+	// any other situation
+	else {
+		style = 'hot';
+	}
+
+	// create the actual HTML we want to display, with placeholders
+	// for the "style" value, the temp value and temp units
+	const formattedData = `
+	<div class="${style}">
+		Temp is ${today.temperature}${today.temperatureUnit}
+	</div>
+	`;
+
+	// hand that block of html back to whatever called this function
+	return formattedData;
 }
 
 // this is a helper function that retrieves the remote data,

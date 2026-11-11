@@ -4,3 +4,25 @@
 *::after {
 	box-sizing: border-box;
 }
+
+/* the main weather container */
+.weather {
+	border: 2px solid #000000;
+	font-size: 4rem;
+	font-weight: bold;
+	font-family: sans-serif;
+	padding: 2rem;
+}
+
+/* styles for different temperature values */
+.cold {
+	color: lightblue;
+}
+
+.warm {
+	color: pink;
+}
+
+.hot {
+	color: red;
+}
