@@ -55,11 +55,22 @@ function processData(dataArray) {
 // this is a helper function that retrieves the remote data,
 // then passes it back as "live" JSON data to whatever called it
 // you can ignore this, just know that the weatherApp() function calls it
-async function getData(dataUrl) {
-	const response = await fetch(dataUrl);
-	if (!response.ok) {
-		throw new Error(`An error has occured: ${response.status}`);
+async function fetchJson(dataUrl, apiKey) {
+	const headers = { Accept: 'application/json' };
+
+	// if you need an api key...
+	if (apiKey) {
+		headers['Authorization'] = `Bearer ${apiKey}`;
 	}
+
+	const response = await fetch(dataUrl, { headers });
+
+	if (!response.ok) {
+		throw new Error(
+			`Request failed: ${response.status} ${response.statusText}`
+		);
+	}
+
 	const json = await response.json();
 	return json;
 }
