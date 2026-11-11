@@ -27,7 +27,6 @@ async function weatherApp() {
 
 // this function takes the JSON data and formats it
 function processData(dataArray) {
-	console.log(dataArray.properties.periods[0].shortForecast);
 	const today = dataArray.properties.periods[0];
 
 	// set up a variable to be given a value later
@@ -50,8 +49,10 @@ function processData(dataArray) {
 	// for the "style" value, the temp value and temp units
 	const formattedData = `
 	<div class="${style}">
-		Temp is ${today.temperature}${today.temperatureUnit}
+		<p>Temp is ${today.temperature}${today.temperatureUnit}</p>
+		<p>Forecast: ${today.shortForecast}</p>
 	</div>
+
 	`;
 
 	// hand that block of html back to whatever called this function
@@ -61,7 +62,7 @@ function processData(dataArray) {
 // this is a helper function that retrieves the remote data,
 // then passes it back as "live" JSON data to whatever called it
 // you can ignore this, just know that the weatherApp() function calls it
-async function fetchJson(dataUrl, apiKey) {
+async function getData(dataUrl, apiKey) {
 	const headers = { Accept: 'application/json' };
 
 	// if you need an api key...
