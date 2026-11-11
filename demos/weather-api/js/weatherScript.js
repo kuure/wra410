@@ -1,6 +1,9 @@
 // the hourly forecast API for east lansing, MI
 const url = 'https://api.weather.gov/gridpoints/GRR/82,39/forecast/hourly';
 
+// made-up API key for example:
+const apiKey = 'MYAPIKEYKEEPTHISSECRET';
+//
 // the container in the html
 const container = document.querySelector('.weather');
 
@@ -12,6 +15,9 @@ async function weatherApp() {
 	// call the getData() function to retrieve JSON from the URL above
 	// and store it in the variable 'data'
 	const data = await getData(url);
+	// if you have an api key:
+	//const data = await getData(url,apiKey);
+
 	// pass the returned data to the processData() function and store it
 	// in a variable named "result"
 	const result = processData(data);
