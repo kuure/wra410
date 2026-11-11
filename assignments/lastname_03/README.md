@@ -19,8 +19,8 @@ All files must be valid, with no errors in your CSS, HTML, or JavaScript
 
 Please try to minimize your AI use; that said, please explain any and all AI use
 in your notes below.
----
 
+---
 
 ## Add your Info Below:
 
