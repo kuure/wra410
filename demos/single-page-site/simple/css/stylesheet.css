@@ -1,54 +1,44 @@
-/* hard reset of ALL margins and padding for every HTML
- * element. You have to add them ALL back by hand, but this
- * is worth it to me....
+/* inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
- * it also sets all elements to use the vastly superior
- * border-box setting to size elements compared to the
- * default content-box
- */
-*,*::before,*::after {
+/* reset */
+*,
+*::before,
+*::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-
-/* set a background color as a starting point and use
- * Helvetica if it's available, Arial if isn't, and any
- * sans-serif one if necessary */
+/* font and flex rules for body */
 body {
-	font-family: "Helvetica","Arial",sans-serif;
-	background-color: hsl(0, 100%, 100%); 
-
-	/* make the body a flex container for alignment purposes */
+	font-family: 'Inter', sans-serif;
 	display: flex;
 	flex-direction: column;
 }
 
-
-/* header, _NOT_ head */
+/* header, not head */
 header {
-	
 	/* add some space around the contents */
 	padding: 1rem;
 
-	/* background color */
-	background-color: hsl(0, 0%, 60%); 
+	/* color and background */
+	background-color: hsl(0, 0%, 30%);
+
 	/* tell this to be sticky - always in the same place on
 	 * screen - and where that place should be */
 	position: sticky;
 	top: 0;
 
-	/* another flex container...? */
-
+	/* another flex container */
 	display: flex;
+	/* this allows for max flexibility for displaying elements  along any axis */
 	justify-content: space-between;
-
 }
 
 /* the ul that holds the links  */
 nav ul {
-	list-style:none;
+	list-style: none;
 	display: flex;
 }
 
@@ -61,20 +51,18 @@ nav ul li a {
 /* the hover state */
 nav ul li a:hover {
 	/* hover state to make them stand out */
-	color: hsl(250,100%,80%);
+	color: hsl(250, 100%, 80%);
 }
-
 
 /* you can apply styles to every <section> tag by using the  element name selector */
 section {
 	/* this padding has been cranked up to make sure it shows up past the header element */
 	/* there are much more elegant ways to do this... */
-	padding: 10rem; 
+	padding: 10rem;
 
 	/* set each to always be 100% of the height of the screen, to act like "pages" */
 	height: 100vh;
 }
-
 
 /* each section can be styled individually */
 #home {
@@ -85,4 +73,3 @@ section {
 
 #contact {
 }
-

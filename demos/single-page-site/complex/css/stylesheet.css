@@ -1,39 +1,20 @@
-/* hard reset of ALL margins and padding for every HTML
- * element. You have to add them ALL back by hand, but this
- * is worth it to me....
+/* inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
- * it also sets all elements to use the vastly superior
- * border-box setting to size elements compared to the
- * default content-box
- */
+/* reset */
 *,
 *::before,
 *::after {
 	margin: 0;
-	padding: 10;
+	padding: 0;
 	box-sizing: border-box;
 }
 
-/* set a background color as a starting point and use
- * Helvetica if it's available, Arial if isn't, and any
- * sans-serif one if necessary */
+/* font and flex rules for body */
 body {
-	font-family: 'Helvetica', 'Arial', sans-serif;
+	font-family: 'Inter', sans-serif;
 	display: flex;
 	flex-direction: column;
-}
-
-/* set initial values for bottom margins */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-li,
-ul {
-	margin-bottom: 1rem;
 }
 
 /* you can apply styles to every <section> tag by using the  element name selector */
@@ -74,18 +55,20 @@ nav ul {
 	justify-content: space-between;
 
 	/* the links inside the list items */
-	li a {
-		/* add padding to make clickable area larger */
-		padding: 1rem;
-		color: hsl(0, 50%, 90%);
-	}
-
-	li a:hover,
-	li a:focus,
-	li a.current {
-		/* hover state to make them stand out */
-		background-color: hsl(0, 100%, 70%);
-		border: 5px solid black;
+	li {
+		/* the a tags inside the li */
+		a {
+			/* add padding to make clickable area larger */
+			padding: 1rem;
+			color: hsl(0, 50%, 90%);
+		}
+		a:hover,
+		a:focus,
+		a.current {
+			/* hover state to make them stand out */
+			background-color: hsl(0, 100%, 70%);
+			outline: 2px solid hsl(0, 100%, 90%);
+		}
 	}
 }
 

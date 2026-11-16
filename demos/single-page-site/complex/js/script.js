@@ -20,21 +20,19 @@ window.addEventListener('load', () => {
 
 // build the nav bar from the navLinks array
 function buildNav() {
+	// the "hash" value
 	const hash = window.location.hash;
 
 	// loop the links and use .map() to format each one
-	const navHTML = navLinks
-		.map(link => {
-			console.log(hash === '');
-			if (hash.endsWith(link.url)) {
-				return `
+	const navHTML = navLinks.map(link => {
+		if (hash.endsWith(link.url)) {
+			return `
 				<li><a href="${link.url}" class="current">${link.text}</a></li>
 			`;
-			} else {
-				return `
+		} else {
+			return `
 				<li><a href="${link.url}">${link.text}</a></li>`;
-			}
-		})
-		.join('');
-	nav.innerHTML = `<ul>${navHTML}</ul>`;
+		}
+	});
+	nav.innerHTML = `<ul>${navHTML.join('')}</ul>`;
 }

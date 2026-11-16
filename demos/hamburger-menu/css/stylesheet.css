@@ -1,3 +1,6 @@
+/* inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 /* reset */
 *,
 *::before,
@@ -7,34 +10,32 @@
 	box-sizing: border-box;
 }
 
+/* font for body */
 body {
-	font-family: sans-serif;
+	font-family: 'Inter', sans-serif;
 }
 
+/* header style */
 header {
-	background: #333;
-	color: white;
+	background: hsl(0, 0%, 25%);
+	color: hsl(0, 0%, 100%);
 	padding: 1rem;
 }
 
-nav {
-	margin: 0 auto;
-}
-
-/* Hide checkbox */
+/* input checkbox */
 #menu-toggle {
 	display: none;
 }
 
-/* hamburger button */
+/* label element */
 .menu-button {
 	display: block;
 	background: none;
-	border: none;
 	cursor: pointer;
 	padding: 0.5rem;
 	margin-bottom: 1rem;
 
+	/* span elements inside label */
 	span {
 		display: block;
 		width: 2rem;
@@ -45,37 +46,41 @@ nav {
 	}
 }
 
-/* Navigation menu */
+/* menu ul */
 .menu {
 	list-style: none;
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 0.3s ease;
+	/* li elements inside menu */
 	li {
-		border-top: 1px solid #555;
-	}
-	a {
-		display: block;
-		color: white;
-		text-decoration: none;
-		padding: 1rem;
-		transition: background 0.2s;
-	}
-	a:hover,
-	a:focus {
-		background: #555;
-		outline: 2px solid white;
-		outline-offset: -2px;
+		border-top: 1px solid hsl(0, 0%, 55%);
+		/* a elements inside li elements */
+		a {
+			display: block;
+			color: hsl(0, 0%, 100%);
+			text-decoration: none;
+			padding: 1rem;
+			transition: background 0.2s;
+		}
+		/* hover, focus, and .current states */
+		a:hover,
+		a:focus,
+		a.current {
+			background: hsl(0, 0%, 35%);
+			outline: 2px solid white;
+			outline-offset: -2px;
+			color: hsl(360, 100%, 80%);
+		}
 	}
 }
 
-/* show menu when checkbox is checked */
+/* set a height when checked */
 #menu-toggle:checked ~ .menu {
-	max-height: 20rem;
+	max-height: 40rem;
 }
 
 /* animate the three bars to an X */
-
 /* rotate the first one 45 degrees and shift position */
 #menu-toggle:checked ~ label span:nth-child(1) {
 	transform: rotate(45deg) translate(0.5rem, 0.5rem);
@@ -84,7 +89,6 @@ nav {
 #menu-toggle:checked ~ label span:nth-child(2) {
 	opacity: 0;
 }
-
 /* rotate the third the same as the first, but opposite directions */
 #menu-toggle:checked ~ label span:nth-child(3) {
 	transform: rotate(-45deg) translate(0.5rem, -0.5rem);
@@ -102,15 +106,6 @@ nav {
 		gap: 1rem;
 		li {
 			border: none;
-		}
-
-		a {
-			padding: 0.5rem 1rem;
-			border-radius: 0.25rem;
-		}
-		a:hover,
-		a:focus {
-			color: pink;
 		}
 	}
 }
