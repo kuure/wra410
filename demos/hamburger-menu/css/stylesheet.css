@@ -1,0 +1,116 @@
+/* reset */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+header {
+	background: #333;
+	color: white;
+	padding: 1rem;
+}
+
+nav {
+	margin: 0 auto;
+}
+
+/* Hide checkbox */
+#menu-toggle {
+	display: none;
+}
+
+/* hamburger button */
+.menu-button {
+	display: block;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0.5rem;
+	margin-bottom: 1rem;
+
+	span {
+		display: block;
+		width: 2rem;
+		height: 0.25rem;
+		background: white;
+		margin: 0.45rem 0;
+		transition: 0.3s;
+	}
+}
+
+/* Navigation menu */
+.menu {
+	list-style: none;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+	li {
+		border-top: 1px solid #555;
+	}
+	a {
+		display: block;
+		color: white;
+		text-decoration: none;
+		padding: 1rem;
+		transition: background 0.2s;
+	}
+	a:hover,
+	a:focus {
+		background: #555;
+		outline: 2px solid white;
+		outline-offset: -2px;
+	}
+}
+
+/* show menu when checkbox is checked */
+#menu-toggle:checked ~ .menu {
+	max-height: 20rem;
+}
+
+/* animate the three bars to an X */
+
+/* rotate the first one 45 degrees and shift position */
+#menu-toggle:checked ~ label span:nth-child(1) {
+	transform: rotate(45deg) translate(0.5rem, 0.5rem);
+}
+/* hide the second one */
+#menu-toggle:checked ~ label span:nth-child(2) {
+	opacity: 0;
+}
+
+/* rotate the third the same as the first, but opposite directions */
+#menu-toggle:checked ~ label span:nth-child(3) {
+	transform: rotate(-45deg) translate(0.5rem, -0.5rem);
+}
+
+/* Desktop view */
+@media (min-width: 769px) {
+	.menu-button {
+		display: none;
+	}
+
+	.menu {
+		max-height: none;
+		display: flex;
+		gap: 1rem;
+		li {
+			border: none;
+		}
+
+		a {
+			padding: 0.5rem 1rem;
+			border-radius: 0.25rem;
+		}
+		a:hover,
+		a:focus {
+			color: pink;
+		}
+	}
+}
