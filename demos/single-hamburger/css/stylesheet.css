@@ -17,6 +17,35 @@ body {
 	flex-direction: column;
 }
 
+/* display in grid for mobile layout */
+header {
+	padding: 1rem;
+	background-color: hsl(0, 0%, 30%);
+
+	/* sticky header at top */
+	position: sticky;
+	top: 0;
+
+	/* grid layout */
+	display: grid;
+	grid-template-columns: 5rem, auto;
+	grid-template-rows: repeat(2, auto);
+
+	/* h1 inside of header */
+	h1 {
+		color: hsl(0, 0%, 100%);
+	}
+	/* nav inside header */
+	nav {
+		grid-column: span 2 / span 2;
+	}
+}
+
+/* align the toggle button to the right */
+.toggle-container {
+	justify-self: end;
+}
+
 /* you can apply styles to every <section> tag by using the  element name selector */
 section {
 	/* this padding has been cranked up to make sure it shows up past the header element */
@@ -30,8 +59,8 @@ section {
 /* each section gets its own background color based on their IDs */
 #home {
 	background-color: hsl(60, 100%, 80%);
-	/* this one gets a smaller padding-top value to allow for the height of
-	the header */
+	/* tweaks to allow for the default page and the #home link */
+	scroll-margin-top: 5rem;
 	padding-top: 5rem;
 }
 
@@ -43,7 +72,7 @@ section {
 	background-color: hsl(180, 100%, 80%);
 }
 
-/* input checkbox */
+/* input checkbox is hidden */
 #menu-toggle {
 	display: none;
 }
@@ -70,6 +99,7 @@ section {
 /* menu ul */
 .menu {
 	list-style: none;
+	/* set height to zero unless check box checked */
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 0.3s ease;
@@ -96,32 +126,40 @@ section {
 	}
 }
 
-/* set a height when checked */
-#menu-toggle:checked ~ .menu {
+/* set a height for the menu when checked */
+header:has(#menu-toggle:checked) .menu {
 	max-height: 40rem;
 	width: 100%;
 }
 
 /* animate the three bars to an X */
 /* rotate the first one 45 degrees and shift position */
-#menu-toggle:checked ~ label span:nth-child(1) {
+header:has(#menu-toggle:checked) label span:nth-child(1) {
 	transform: rotate(45deg) translate(0.5rem, 0.5rem);
 }
 /* hide the second one */
-#menu-toggle:checked ~ label span:nth-child(2) {
+header:has(#menu-toggle:checked) label span:nth-child(2) {
 	opacity: 0;
 }
 /* rotate the third the same as the first, but opposite directions */
-#menu-toggle:checked ~ label span:nth-child(3) {
+header:has(#menu-toggle:checked) label span:nth-child(3) {
 	transform: rotate(-45deg) translate(0.5rem, -0.5rem);
 }
 
 /* Desktop view */
 @media (min-width: 769px) {
+	/* use flex in wide mode */
+	header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	/* hide the button in wide view */
 	.menu-button {
 		display: none;
 	}
 
+	/* show menu in wide mode and use flex */
 	.menu {
 		max-height: none;
 		display: flex;
@@ -130,22 +168,4 @@ section {
 			border: none;
 		}
 	}
-}
-/* header, not head */
-header {
-	/* add some space around the contents */
-	padding: 1rem;
-
-	/* color and background */
-	background-color: hsl(0, 0%, 30%);
-
-	/* tell this to be sticky - always in the same place on
-	 * screen - and where that place should be */
-	position: sticky;
-	top: 0;
-
-	/* another flex container */
-	display: flex;
-	/* this allows for max flexibility for displaying elements  along any axis */
-	justify-content: space-between;
 }

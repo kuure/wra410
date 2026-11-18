@@ -21,10 +21,11 @@ window.addEventListener('load', () => {
 // build the nav bar from the navLinks array
 function buildNav() {
 	// the "hash" value, get the current one or use "#home"
-	const hash = window.location.hash || '#home';
+	const hash = window.location.hash || '#main';
 
 	// loop the links and use .map() to format each one
 	const navHTML = navLinks.map(link => {
+		// if the link
 		if (hash.endsWith(link.url)) {
 			return `
 				<li><a href="${link.url}" class="current">${link.text}</a></li>
@@ -36,17 +37,3 @@ function buildNav() {
 	});
 	menu.innerHTML = `${navHTML.join('')}`;
 }
-
-/*
- const links = document.querySelectorAll('nav li a');
-
-function setActive() {
-  // Empty hash ("" or "#") falls back to the home link
-  const current = location.hash || '#home';
-
-  links.forEach(a => {
-    const li = a.closest('li');
-    li.classList.toggle('active', a.getAttribute('href') === current);
-  });
-}
-*/
