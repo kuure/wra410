@@ -1,0 +1,151 @@
+/* inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* reset */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* font and flex rules for body */
+body {
+	font-family: 'Inter', sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+
+/* you can apply styles to every <section> tag by using the  element name selector */
+section {
+	/* this padding has been cranked up to make sure it shows up past the header element */
+	/* there are much more elegant ways to do this... */
+	padding: 10rem;
+
+	/* set each to always be 100% of the height of the screen, to act like "pages" */
+	height: 100vh;
+}
+
+/* each section gets its own background color based on their IDs */
+#home {
+	background-color: hsl(60, 100%, 80%);
+	/* this one gets a smaller padding-top value to allow for the height of
+	the header */
+	padding-top: 5rem;
+}
+
+#about {
+	background-color: hsl(300, 100%, 80%);
+}
+
+#contact {
+	background-color: hsl(180, 100%, 80%);
+}
+
+/* input checkbox */
+#menu-toggle {
+	display: none;
+}
+
+/* label element */
+.menu-button {
+	display: block;
+	background: none;
+	cursor: pointer;
+	padding: 0.5rem;
+	margin-bottom: 1rem;
+
+	/* span elements inside label */
+	span {
+		display: block;
+		width: 2rem;
+		height: 0.25rem;
+		background: white;
+		margin: 0.45rem 0;
+		transition: 0.3s;
+	}
+}
+
+/* menu ul */
+.menu {
+	list-style: none;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+	/* li elements inside menu */
+	li {
+		border-top: 1px solid hsl(0, 0%, 55%);
+		/* a elements inside li elements */
+		a {
+			display: block;
+			color: hsl(0, 0%, 100%);
+			text-decoration: none;
+			padding: 1rem;
+			transition: background 0.2s;
+		}
+		/* hover, focus, and .current states */
+		a:hover,
+		a:focus,
+		a.current {
+			background: hsl(0, 0%, 35%);
+			outline: 2px solid white;
+			outline-offset: -2px;
+			color: hsl(360, 100%, 80%);
+		}
+	}
+}
+
+/* set a height when checked */
+#menu-toggle:checked ~ .menu {
+	max-height: 40rem;
+	width: 100%;
+}
+
+/* animate the three bars to an X */
+/* rotate the first one 45 degrees and shift position */
+#menu-toggle:checked ~ label span:nth-child(1) {
+	transform: rotate(45deg) translate(0.5rem, 0.5rem);
+}
+/* hide the second one */
+#menu-toggle:checked ~ label span:nth-child(2) {
+	opacity: 0;
+}
+/* rotate the third the same as the first, but opposite directions */
+#menu-toggle:checked ~ label span:nth-child(3) {
+	transform: rotate(-45deg) translate(0.5rem, -0.5rem);
+}
+
+/* Desktop view */
+@media (min-width: 769px) {
+	.menu-button {
+		display: none;
+	}
+
+	.menu {
+		max-height: none;
+		display: flex;
+		gap: 1rem;
+		li {
+			border: none;
+		}
+	}
+}
+/* header, not head */
+header {
+	/* add some space around the contents */
+	padding: 1rem;
+
+	/* color and background */
+	background-color: hsl(0, 0%, 30%);
+
+	/* tell this to be sticky - always in the same place on
+	 * screen - and where that place should be */
+	position: sticky;
+	top: 0;
+
+	/* another flex container */
+	display: flex;
+	/* this allows for max flexibility for displaying elements  along any axis */
+	justify-content: space-between;
+}
