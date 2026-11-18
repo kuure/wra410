@@ -24,7 +24,7 @@
 				display: inline-block;
 			}
 
-			/* 'slide-in' defintion */
+			/* 'slide-in' definition */
 			@keyframes slide-in {
 				from {
 					translate: 100vw 0;
@@ -37,7 +37,7 @@
 				}
 			}
 
-			/* 'grow-shrink' defintion */
+			/* 'grow-shrink' definition */
 			@keyframes grow-shrink {
 				25%,
 				75% {
@@ -62,9 +62,9 @@
 		</p>
 
 		<script>
-
 			const element = document.querySelector('p');
 
+			// set a count variable that can be incremented so you must use 'let'
 			let count = 0;
 
 			// event listeners
@@ -83,8 +83,6 @@
 			element.addEventListener('animationiteration', () => {
 				console.log(`animation count: ${count++}`);
 			});
-
 		</script>
-
 	</body>
 </html>
