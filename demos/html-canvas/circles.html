@@ -1,0 +1,129 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<title>HTML Canvas JavaScript Objects</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="stylesheet" href="css/stylesheet.css" />
+
+		<style>
+			canvas {
+				border: 1px solid hsl(0, 0%, 0%);
+				background-color: hsl(0, 0%, 100%);
+				max-width: 1200px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>HTML Canvas Using JavaScript and Objects</h1>
+
+		<p>
+			Reloading this page will randomly generate a number of circles of
+			different sizes, colors, and location within the canvas
+		</p>
+
+		<div>
+			<label for="radius">Max Radius:</label>
+			<span id="radius-min">10</span>
+			<input
+				type="range"
+				id="radius"
+				name="radius"
+				min="10"
+				max="100"
+				value="100"
+				step="5"
+			/>
+			<span id="radius-max">100</span>
+		</div>
+
+		<div>
+			<label for="number">Total Circles:</label>
+			<span id="number-min">10</span>
+			<input
+				type="range"
+				id="number"
+				name="number"
+				min="10"
+				max="1000"
+				value="500"
+				step="5"
+			/>
+			<span id="number-max">1000</span>
+		</div>
+
+		<div>
+			<button>Generate Circles</button>
+		</div>
+
+		<canvas width="1200" height="600"></canvas>
+
+		<script>
+			// new empty array
+			const circles = [];
+
+			// set up a 2d HTML canvas
+			const canvas = document.querySelector('canvas');
+			const ctx = canvas.getContext('2d');
+
+			const button = document.querySelector('button');
+			const radius = document.querySelector('#radius');
+			const number = document.querySelector('#number');
+
+			button.addEventListener('click', drawCircles);
+
+			// this function is called when the button is clicked
+			function drawCircles() {
+				// get the radius and number from the sliders
+				const maxRadius = radius.value;
+				const totalCircles = number.value;
+
+				// clear the existing circles
+				ctx.reset();
+
+				// the loop that creates all the circles
+				for (let i = 0; i < totalCircles; i++) {
+					// for each circle in the array, call the Circle() function below;
+					circles[i] = new Circle();
+					circles[i].draw();
+				}
+
+				// log the array of circles to the console
+				console.log(circles);
+
+				// the circle constructor function
+				function Circle() {
+					// random x and y coordinates based on the canvas size
+					this.x = Math.round(Math.random() * canvas.offsetWidth);
+					this.y = Math.round(Math.random() * canvas.offsetHeight);
+
+					// radius based on the maxRadius value
+					this.radius = Math.round(Math.random() * maxRadius);
+
+					// color comes from the helper function below
+					this.color = randomColor();
+
+					// the function that draws each circle
+					this.draw = function () {
+						ctx.beginPath();
+						ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+						ctx.fillStyle = this.color;
+						ctx.fill();
+						ctx.closePath();
+					};
+				}
+			}
+
+			// helper function to generate random colors for each circle
+			function randomColor() {
+				function random() {
+					return Math.floor(Math.random() * 255);
+				}
+				return `rgb(${random()},${random()},${random()})`;
+			}
+		</script>
+	</body>
+</html>
