@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Modern Accessible Bento Grid</title>
+		<style>
+			/* ==========================================================================
+       1. DESIGN TOKENS & BASE SETUP
+       ========================================================================== */
+			:root {
+				/* Palette with WCAG AA+ contrast ratios */
+				--bg-page: #0f1115;
+				--bg-card: #181b21;
+				--bg-card-hover: #1f232b;
+				--border-subtle: #2b303b;
+				--text-primary: #f8fafc;
+				--text-secondary: #94a3b8;
+				--accent: #38bdf8;
+				--focus-ring: #7dd3fc;
+
+				/* Geometry & Spacing */
+				--grid-gap: 1.25rem;
+				--radius-outer: 1.5rem;
+				--card-padding: 1.5rem;
+				/* Optical inner radius formula: outer radius - padding */
+				--radius-inner: calc(var(--radius-outer) - 0.5rem);
+			}
+
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+			}
+
+			body {
+				font-family:
+					system-ui,
+					-apple-system,
+					BlinkMacSystemFont,
+					'Segoe UI',
+					Roboto,
+					sans-serif;
+				background-color: var(--bg-page);
+				color: var(--text-primary);
+				line-height: 1.5;
+				padding: clamp(1rem, 4vw, 3rem);
+			}
+
+			/* ==========================================================================
+       2. ACCESSIBLE BENTO GRID (NATIVE CSS NESTING)
+       ========================================================================== */
+			.bento-section {
+				max-inline-size: 75rem;
+				margin-inline: auto;
+
+				& .section-heading {
+					font-size: clamp(1.75rem, 3vw, 2.5rem);
+					margin-block-end: 1.5rem;
+					letter-spacing: -0.02em;
+				}
+			}
+
+			/* Semantic <ul> reset to preserve list navigation in screen readers (VoiceOver/NVDA) */
+			.bento-grid {
+				list-style: none;
+				padding: 0;
+				display: grid;
+				gap: var(--grid-gap);
+
+				/* Mobile-first: Single column matching exact DOM reading order */
+				grid-template-columns: 1fr;
+				grid-template-areas:
+					'hero'
+					'metrics'
+					'status'
+					'security'
+					'api';
+
+				/* Tablet breakpoint: 2-column balanced layout */
+				@media (min-width: 40rem) {
+					grid-template-columns: repeat(2, 1fr);
+					grid-template-areas:
+						'hero     hero'
+						'metrics  status'
+						'security api';
+				}
+
+				/* Desktop breakpoint: 4-column asymmetric bento layout */
+				@media (min-width: 64rem) {
+					grid-template-columns: repeat(4, 1fr);
+					grid-auto-rows: minmax(11rem, auto);
+					grid-template-areas:
+						'hero    hero    metrics status'
+						'hero    hero    api     api'
+						'security security api   api';
+				}
+
+				/* ========================================================================
+         3. BENTO CARDS & INTERACTION STATES
+         ======================================================================== */
+				& .bento-item {
+					display: flex; /* Ensures inner article stretches to full grid area height */
+
+					/* Map semantic items to named grid areas (avoids fragile line numbers) */
+					&.is-hero {
+						grid-area: hero;
+					}
+					&.is-metrics {
+						grid-area: metrics;
+					}
+					&.is-status {
+						grid-area: status;
+					}
+					&.is-security {
+						grid-area: security;
+					}
+					&.is-api {
+						grid-area: api;
+					}
+				}
+
+				& .bento-card {
+					position: relative;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					gap: 1rem;
+					inline-size: 100%;
+					padding: var(--card-padding);
+					background-color: var(--bg-card);
+					border: 1px solid var(--border-subtle);
+					border-radius: var(--radius-outer);
+					transition:
+						background-color 0.2s ease,
+						transform 0.2s ease,
+						border-color 0.2s ease;
+
+					/* Respect user motion preferences */
+					@media (prefers-reduced-motion: no-preference) {
+						&:hover {
+							transform: translateY(-2px);
+						}
+					}
+
+					&:hover {
+						background-color: var(--bg-card-hover);
+						border-color: #475569;
+					}
+
+					/* Highlight the entire card when its internal link receives keyboard focus */
+					&:focus-within {
+						outline: 3px solid var(--focus-ring);
+						outline-offset: 3px;
+					}
+
+					& .card-tag {
+						display: inline-block;
+						align-self: flex-start;
+						font-size: 0.75rem;
+						font-weight: 600;
+						text-transform: uppercase;
+						letter-spacing: 0.06em;
+						color: var(--accent);
+						background: color-mix(in srgb, var(--accent) 14%, transparent);
+						padding: 0.25rem 0.65rem;
+						border-radius: 999px;
+					}
+
+					& .card-title {
+						font-size: 1.25rem;
+						font-weight: 600;
+						margin-block-start: 0.75rem;
+
+						/* Stretched-link pattern: Keeps link text concise for screen readers
+             while making the entire card clickable for pointer users */
+						& a {
+							color: inherit;
+							text-decoration: none;
+
+							&::after {
+								content: '';
+								position: absolute;
+								inset: 0;
+								border-radius: var(--radius-outer);
+							}
+
+							&:focus-visible {
+								outline: none; /* Handled cleanly by parent :focus-within */
+							}
+						}
+					}
+
+					& .card-desc {
+						color: var(--text-secondary);
+						font-size: 0.95rem;
+						margin-block-start: 0.4rem;
+					}
+
+					& .card-visual {
+						background: var(--bg-page);
+						border: 1px solid var(--border-subtle);
+						border-radius: var(--radius-inner);
+						padding: 1rem;
+						font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+						font-size: 0.85rem;
+						color: #cbd5e1;
+					}
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<!-- Landmark region tied to its visible heading -->
+			<section class="bento-section" aria-labelledby="platform-heading">
+				<h1 id="platform-heading" class="section-heading">
+					Platform Architecture
+				</h1>
+
+				<!-- Semantic list lets assistive tech announce "List, 5 items" -->
+				<ul class="bento-grid">
+					<li class="bento-item is-hero">
+						<article class="bento-card">
+							<div>
+								<span class="card-tag">Core Engine</span>
+								<h2 class="card-title">
+									<a href="#edge-compute">Global Edge Compute</a>
+								</h2>
+								<p class="card-desc">
+									Deploy stateless functions across 300+ locations with zero
+									cold-start overhead and automatic failover.
+								</p>
+							</div>
+							<div class="card-visual" aria-hidden="true">
+								$ deploy --region=global --latency=&lt;15ms
+							</div>
+						</article>
+					</li>
+
+					<li class="bento-item is-metrics">
+						<article class="bento-card">
+							<div>
+								<span class="card-tag">Telemetry</span>
+								<h2 class="card-title">
+									<a href="#uptime">99.99% SLA</a>
+								</h2>
+								<p class="card-desc">Real-time sub-second log streaming.</p>
+							</div>
+						</article>
+					</li>
+
+					<li class="bento-item is-status">
+						<article class="bento-card">
+							<div>
+								<span class="card-tag">Health</span>
+								<h2 class="card-title">
+									<a href="#nodes">Active Nodes</a>
+								</h2>
+								<p class="card-desc">All 42 clusters operating normally.</p>
+							</div>
+						</article>
+					</li>
+
+					<li class="bento-item is-security">
+						<article class="bento-card">
+							<div>
+								<span class="card-tag">Compliance</span>
+								<h2 class="card-title">
+									<a href="#encryption">Zero-Trust Mesh</a>
+								</h2>
+								<p class="card-desc">
+									End-to-end mTLS encryption and hardware-backed key rotation
+									enabled by default.
+								</p>
+							</div>
+						</article>
+					</li>
+
+					<li class="bento-item is-api">
+						<article class="bento-card">
+							<div>
+								<span class="card-tag">Developer DX</span>
+								<h2 class="card-title">
+									<a href="#sdk">Typed GraphQL &amp; REST SDKs</a>
+								</h2>
+								<p class="card-desc">
+									Auto-generated client libraries with built-in retries,
+									caching, and schema validation.
+								</p>
+							</div>
+							<div class="card-visual" aria-hidden="true">
+								const data = await client.query({ cache:
+								'stale-while-revalidate' });
+							</div>
+						</article>
+					</li>
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>
+

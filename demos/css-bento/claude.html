@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, viewport-fit=cover"
+		/>
+		<meta name="color-scheme" content="light dark" />
+		<title>Bento grid: modern CSS demo</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			/* =========================================================
+			1. DESIGN TOKENS
+			Colours live on :root so light/dark is a one-place change.
+			========================================================= */
+			:root {
+				--bg: #e6ecf5;
+				--surface: #ffffff;
+				--soft: #d3e1ff;
+				--ink: #14213d;
+				--muted: #3f4f6b;
+				--accent: #2b45f0;
+				--on-accent: #ffffff;
+				--warm: #ffe27a;
+				--on-warm: #14213d;
+				--line: #b7c4dc;
+
+				--gap: clamp(0.75rem, 2vw, 1.25rem);
+				--radius: 1.5rem;
+				--font:
+					'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI',
+					sans-serif;
+				--mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+				box-sizing: border-box;
+				/* Keep content clear of phone system bars (zero on desktop) */
+				padding-top: env(safe-area-inset-top, 0px);
+				padding-bottom: env(safe-area-inset-bottom, 0px);
+			}
+
+			/* Dark values: follow the OS unless the visitor picked light explicitly */
+			@media (prefers-color-scheme: dark) {
+				:root:not([data-theme='light']) {
+					--bg: #0d1424;
+					--surface: #18233b;
+					--soft: #22315a;
+					--ink: #eaf0ff;
+					--muted: #aab8d6;
+					--accent: #2b45f0;
+					--warm: #f2d160;
+					--line: #34456b;
+					color-scheme: dark;
+				}
+			}
+			/* ...and the manual override from the toggle button */
+			:root[data-theme='dark'] {
+				--bg: #0d1424;
+				--surface: #18233b;
+				--soft: #22315a;
+				--ink: #eaf0ff;
+				--muted: #aab8d6;
+				--accent: #2b45f0;
+				--warm: #f2d160;
+				--line: #34456b;
+				color-scheme: dark;
+			}
+
+			html {
+				scroll-padding-top: env(safe-area-inset-top, 0px);
+			}
+
+			body {
+				margin: 0;
+				font-family: var(--font);
+				font-size: 1.0625rem;
+				line-height: 1.55;
+				color: var(--ink);
+				background: var(--bg);
+			}
+
+			/* =========================================================
+				 2. PAGE SHELL
+				 ========================================================= */
+			.page {
+				max-width: 72rem;
+				margin-inline: auto;
+				padding: clamp(1rem, 4vw, 2.5rem);
+			}
+
+			/* Skip link: first tab stop, visible only when focused */
+			.skip {
+				position: absolute;
+				left: 1rem;
+				top: -4rem;
+				padding: 0.6rem 1rem;
+				background: var(--ink);
+				color: var(--bg);
+				border-radius: 0.5rem;
+				z-index: 10;
+
+				&:focus {
+					top: 1rem;
+				} /* nested rule: same as .skip:focus */
+			}
+
+			/* =========================================================
+				 3. THE GRID
+				 One column on phones. grid-template-areas names each tile
+				 so reflowing is a matter of redrawing a little ASCII map.
+				 ========================================================= */
+			.bento {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				gap: var(--gap);
+				grid-template-columns: 1fr;
+				grid-template-areas:
+					'hero'
+					'a11y'
+					'query'
+					'code'
+					'nest'
+					'theme';
+
+				/* Tablet: two columns */
+				@media (min-width: 40rem) {
+					grid-template-columns: repeat(2, 1fr);
+					grid-template-areas:
+						'hero  hero'
+						'a11y  query'
+						'code  code'
+						'nest  theme';
+				}
+
+				/* Desktop: four columns, code tile spans two rows */
+				@media (min-width: 64rem) {
+					grid-template-columns: repeat(4, 1fr);
+					grid-template-areas:
+						'hero hero a11y  query'
+						'hero hero code  code'
+						'nest theme code code';
+				}
+			}
+
+			/* =========================================================
+				 4. THE TILE
+				 Everything about a tile (and its children, states and
+					 variants) is nested inside this one block.
+				 ========================================================= */
+			.tile {
+				/* Each tile is a query container: its children can react to the tile’s width instead of the viewport’s */
+				container-type: inline-size;
+				grid-area: var(--area);
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+				min-width: 0; /* lets code blocks scroll instead of stretching the grid */
+				padding: clamp(1.1rem, 3vw, 1.75rem);
+				background: var(--surface);
+				color: var(--ink);
+				border: 1px solid var(--line);
+				border-radius: var(--radius);
+				transition: border-color 0.2s;
+
+				/* Hover and keyboard focus both highlight the tile */
+				&:hover,
+				&:focus-within {
+					border-color: var(--accent);
+				}
+
+				h2 {
+					margin: 0;
+					font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem);
+					line-height: 1.15;
+					letter-spacing: -0.01em;
+				}
+
+				p {
+					margin: 0;
+					max-width: 60ch;
+				}
+
+				/* Variants set colour tokens, so children inherit them */
+				&.is-accent {
+					background: var(--accent);
+					color: var(--on-accent);
+					border-color: transparent;
+				}
+				&.is-soft {
+					background: var(--soft);
+				}
+				&.is-warm {
+					background: var(--warm);
+					color: var(--on-warm);
+					border-color: transparent;
+				}
+			}
+
+			/* Each tile declares its grid area through a custom property */
+			.hero {
+				--area: hero;
+			}
+			.a11y {
+				--area: a11y;
+			}
+			.query {
+				--area: query;
+			}
+			.code {
+				--area: code;
+			}
+			.nest {
+				--area: nest;
+			}
+			.theme {
+				--area: theme;
+			}
+
+			/* =========================================================
+   5. TILE-SPECIFIC STYLES
+   ========================================================= */
+			.hero {
+				justify-content: flex-end;
+				min-height: 15rem;
+
+				h1 {
+					margin: 0;
+					font-size: clamp(2.25rem, 1.2rem + 5vw, 4.5rem);
+					font-weight: 800;
+					line-height: 0.98;
+					letter-spacing: -0.03em;
+					text-wrap: balance; /* avoids one-word last lines */
+				}
+			}
+
+			.checklist {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				display: grid;
+				gap: 0.4rem;
+
+				li {
+					padding-left: 1.5rem;
+					position: relative;
+
+					/* Decorative tick, hidden from assistive tech via content alt text */
+					&::before {
+						content: '✓' / '';
+						position: absolute;
+						left: 0;
+						font-weight: 700;
+					}
+				}
+			}
+
+			/* Container query: the chips sit in a column when the tile is narrow
+   and in a row once the tile itself is wider than 22rem */
+			.chips {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+
+				@container (min-width: 22rem) {
+					flex-direction: row;
+					flex-wrap: wrap;
+				}
+
+				li {
+					padding: 0.3rem 0.8rem;
+					border-radius: 999px;
+					background: var(--surface);
+					border: 1px solid var(--line);
+					font-size: 0.95rem;
+				}
+			}
+
+			/* Code blocks */
+			.snippet {
+				margin: 0;
+				padding: 1rem;
+				overflow-x: auto; /* wide code scrolls inside its own box */
+				border-radius: 1rem;
+				background: var(--ink);
+				color: var(--bg);
+				font: 0.85rem/1.6 var(--mono);
+
+				&:focus-visible {
+					outline: 3px solid var(--warm);
+					outline-offset: 2px;
+				}
+			}
+			.code .snippet {
+				flex: 1;
+			}
+
+			/* Button: real <button>, large target, clear focus ring */
+			.toggle {
+				align-self: flex-start;
+				min-height: 2.75rem;
+				padding: 0.5rem 1.1rem;
+				font: inherit;
+				font-weight: 700;
+				color: var(--ink);
+				background: var(--surface);
+				border: 2px solid var(--ink);
+				border-radius: 999px;
+				cursor: pointer;
+
+				&:hover {
+					background: var(--bg);
+				}
+				&[aria-pressed='true'] {
+					background: var(--ink);
+					color: var(--surface);
+				}
+			}
+
+			/* One shared, highly visible focus style for everything interactive */
+			:focus-visible {
+				outline: 3px solid var(--accent);
+				outline-offset: 3px;
+			}
+			.is-accent :focus-visible {
+				outline-color: var(--on-accent);
+			}
+
+			/* Honour the visitor’s reduced-motion setting */
+			@media (prefers-reduced-motion: reduce) {
+				.tile {
+					transition: none;
+				}
+			}
+
+			footer {
+				margin-top: var(--gap);
+				color: var(--muted);
+				font-size: 0.95rem;
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip" href="#main">Skip to the bento grid</a>
+
+		<div class="page">
+			<main id="main">
+				<!-- A list of tiles: screen readers announce "list, 6 items" -->
+				<ul class="bento">
+					<li class="tile hero is-accent">
+						<h1>A bento grid in plain CSS</h1>
+						<p>
+							Six tiles, no framework. Resize the window or tab through it to
+							see what changes.
+						</p>
+					</li>
+
+					<li class="tile a11y is-warm">
+						<h2>Built to be used</h2>
+						<ul class="checklist">
+							<li>Skip link and landmarks</li>
+							<li>Visible keyboard focus</li>
+							<li>Contrast checked in both themes</li>
+							<li>Reduced motion respected</li>
+						</ul>
+					</li>
+
+					<li class="tile query is-soft">
+						<h2>Tile-level responsive</h2>
+						<p>These chips follow this tile’s width, not the screen’s.</p>
+						<ul class="chips">
+							<li>Container</li>
+							<li>Queries</li>
+							<li>Inside</li>
+						</ul>
+					</li>
+
+					<li class="tile code">
+						<h2>The grid</h2>
+						<p>Named areas make each breakpoint a small text map.</p>
+						<!-- tabindex lets keyboard users scroll the code block -->
+						<pre
+							class="snippet"
+							tabindex="0"
+							aria-label="CSS grid-template-areas example"
+						><code>.bento {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 64rem) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "hero hero a11y  query"
+      "hero hero code  code"
+      "nest theme code code";
+  }
+}
+
+.tile { grid-area: var(--area); }
+.hero { --area: hero; }</code></pre>
+					</li>
+
+					<li class="tile nest">
+						<h2>Native nesting</h2>
+						<p>
+							No Sass. States, children and media queries live inside the rule
+							they belong to.
+						</p>
+					</li>
+
+					<li class="tile theme is-soft">
+						<h2>Light or dark</h2>
+						<p>Follows your system. Override it here.</p>
+						<button
+							class="toggle"
+							type="button"
+							id="theme-btn"
+							aria-pressed="false"
+						>
+							Use dark theme
+						</button>
+					</li>
+				</ul>
+			</main>
+			<footer>Open the page source to read the commented CSS.</footer>
+		</div>
+
+		<script>
+			/* Theme toggle: flips data-theme on <html> and keeps aria-pressed in sync */
+			(function () {
+				var root = document.documentElement;
+				var btn = document.getElementById('theme-btn');
+				var mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+				function isDark() {
+					var t = root.getAttribute('data-theme');
+					return t ? t === 'dark' : mq.matches;
+				}
+				function sync() {
+					var dark = isDark();
+					btn.setAttribute('aria-pressed', String(dark));
+					btn.textContent = dark ? 'Use light theme' : 'Use dark theme';
+				}
+				btn.addEventListener('click', function () {
+					root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+					sync();
+				});
+				sync();
+			})();
+		</script>
+	</body>
+</html>

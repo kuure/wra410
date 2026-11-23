@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title>Accessible Bento Grid</title>
+
+		<style>
+			/* ========================================
+       1. DESIGN TOKENS
+       ======================================== */
+
+			:root {
+				color-scheme: dark;
+
+				--bg: #10131c;
+				--surface: #202b3c;
+				--text: #f8fafc;
+				--muted: #a1a1aa;
+				--gap: 1rem;
+				--radius: 1rem;
+			}
+
+			/* ========================================
+       2. GLOBAL RESET
+       ======================================== */
+
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				min-height: 100vh;
+				padding: clamp(1rem, 4vw, 3rem);
+
+				font-family: system-ui, sans-serif;
+				line-height: 1.5;
+
+				color: var(--text);
+				background: var(--bg);
+			}
+
+			/* ========================================
+       3. MAIN CONTAINER
+       ======================================== */
+
+			.dashboard {
+				width: min(100%, 1100px);
+				margin-inline: auto;
+
+				.dashboard__header {
+					margin-bottom: 2rem;
+
+					h1 {
+						font-size: clamp(1.8rem, 4vw, 3rem);
+						letter-spacing: -0.05em;
+					}
+
+					p {
+						color: var(--muted);
+					}
+				}
+			}
+
+			/* ========================================
+       4. BENTO GRID
+       ======================================== */
+
+			.bento {
+				display: grid;
+
+				/* Four flexible columns */
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+
+				/* Consistent spacing */
+				gap: var(--gap);
+
+				/* Flexible card heights */
+				grid-auto-rows: minmax(150px, auto);
+			}
+
+			/* ========================================
+       5. BASE CARD STYLES
+       ======================================== */
+
+			.card {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+
+				min-width: 0;
+				padding: 1.5rem;
+
+				overflow: hidden;
+				border-radius: var(--radius);
+
+				color: white;
+
+				/* Nested child styling */
+				h2 {
+					margin-block: 0.5rem;
+					font-size: 1.4rem;
+				}
+
+				p {
+					margin: 0;
+					opacity: 0.8;
+				}
+
+				/* Nested hover state */
+				&:hover {
+					filter: brightness(1.1);
+				}
+
+				/* Accessible keyboard focus */
+				&:focus-within {
+					outline: 3px solid #fbbf24;
+					outline-offset: 3px;
+				}
+			}
+
+			/* ========================================
+       6. CARD VARIATIONS
+       ======================================== */
+
+			.card--featured {
+				grid-column: span 2;
+				grid-row: span 2;
+
+				background: linear-gradient(135deg, #4338ca, #9333ea);
+			}
+
+			.card--stats {
+				background: var(--surface);
+
+				strong {
+					font-size: 2.5rem;
+				}
+			}
+
+			.card--orange {
+				background: #ea580c;
+			}
+
+			.card--green {
+				background: #0f766e;
+			}
+
+			.card--blue {
+				background: #1d4ed8;
+			}
+
+			.card--pink {
+				background: #be185d;
+			}
+
+			/* ========================================
+       7. RESPONSIVE BREAKPOINTS
+       ======================================== */
+
+			/* Tablet */
+			@media (max-width: 800px) {
+				.bento {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+				}
+
+				.card--featured {
+					grid-column: span 2;
+					grid-row: span 1;
+				}
+			}
+
+			/* Mobile */
+			@media (max-width: 480px) {
+				body {
+					padding: 1rem;
+				}
+
+				.bento {
+					grid-template-columns: 1fr;
+				}
+
+				.card--featured {
+					grid-column: auto;
+				}
+
+				.card {
+					min-height: 150px;
+				}
+			}
+
+			/* ========================================
+       8. ACCESSIBILITY
+       ======================================== */
+
+			/* Respect the user's motion preferences */
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*::before,
+				*::after {
+					scroll-behavior: auto !important;
+					transition-duration: 0.01ms !important;
+					animation-duration: 0.01ms !important;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<main class="dashboard">
+			<header class="dashboard__header">
+				<h1>My Bento Dashboard</h1>
+				<p>A responsive layout built with modern CSS.</p>
+			</header>
+
+			<!-- Semantic grid containing independent content cards -->
+			<section class="bento" aria-label="Dashboard overview">
+				<article class="card card--featured">
+					<div>
+						<h2>Think bigger.</h2>
+						<p>Build beautiful things with intentional design.</p>
+					</div>
+					<span aria-hidden="true">✳</span>
+				</article>
+
+				<article class="card card--stats">
+					<h2>Visitors</h2>
+					<strong>24.8k</strong>
+					<p>18% growth this month</p>
+				</article>
+
+				<article class="card card--orange">
+					<h2>Creativity</h2>
+					<p>Make room for inspiration.</p>
+				</article>
+
+				<article class="card card--green">
+					<h2>Focus</h2>
+					<p>Less noise. More clarity.</p>
+				</article>
+
+				<article class="card card--blue">
+					<h2>Innovation</h2>
+					<p>Explore new possibilities.</p>
+				</article>
+
+				<article class="card card--pink">
+					<h2>Community</h2>
+					<p>Great things happen together.</p>
+				</article>
+			</section>
+		</main>
+	</body>
+</html>

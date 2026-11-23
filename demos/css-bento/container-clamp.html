@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="en-US">
+	<head>
+		<title>CSS Container Queries / Clamp</title>
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<style>
+			/* 1. Define the query container */
+			.grid-wrapper {
+				container-type: inline-size;
+				container-name: card-grid;
+			}
+
+			/* 2. Set up the base single-column grid with fluid spacing */
+			.grid {
+				display: grid;
+				grid-template-columns: 1fr;
+				/* Fluid gap scales between 1rem and 2rem based on container width (cqi) */
+				gap: clamp(1rem, 3cqi, 2rem);
+			}
+
+			/* 3. Adjust columns based on the container's width */
+			@container card-grid (width >= 35rem) {
+				.grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+
+			@container card-grid (width >= 55rem) {
+				.grid {
+					grid-template-columns: repeat(3, 1fr);
+				}
+			}
+
+			/* 4. Fluid card padding and typography using container query units (cqi) */
+			.card {
+				padding: clamp(1rem, 2.5cqi, 1.75rem);
+				border: 1px solid #ddd;
+				border-radius: 8px;
+			}
+
+			.card h2 {
+				margin-top: 0;
+				/* Fluid font size bounded between 1.125rem and 1.5rem */
+				font-size: clamp(1.125rem, 1rem + 1.5cqi, 1.5rem);
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>CSS Container Queries / Clamp</h1>
+
+		<div class="grid-wrapper">
+			<div class="grid">
+				<article class="card">
+					<h2>Card One</h2>
+					<p>Adapts to its container width, not the browser window.</p>
+				</article>
+				<article class="card">
+					<h2>Card Two</h2>
+					<p>Fluid gap and typography scale smoothly via clamp().</p>
+				</article>
+				<article class="card">
+					<h2>Card Three</h2>
+					<p>Columns automatically adjust at container breakpoints.</p>
+				</article>
+			</div>
+		</div>
+	</body>
+</html>

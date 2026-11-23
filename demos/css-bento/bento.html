@@ -1,0 +1,96 @@
+<html lang="en">
+	<head>
+		<title>CSS Bento Box</title>
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<style>
+			:root {
+				--gap-size: 1rem;
+				--max-width: 1000px;
+				--row-min-height: 160px;
+				--bg-item: hsl(217, 100%, 93%);
+				--border-item: hsl(217, 90%, 61%);
+				--radius-item: 1rem;
+				--padding-item: 2rem;
+			}
+
+			.bento-container {
+				display: flex;
+				height: 100vh;
+				width: 100%;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.bento-grid {
+				width: 100%;
+				display: grid;
+				gap: var(--gap-size);
+				max-width: var(--max-width);
+				margin: 0 auto;
+				/* Mobile first: single column stack */
+				grid-template-columns: 1fr;
+				grid-template-areas:
+					'hero'
+					'side-top'
+					'side-bottom'
+					'wide'
+					'small';
+			}
+
+			/* Desktop layout: 3 columns, 3 rows */
+			@media (min-width: 768px) {
+				.bento-grid {
+					grid-template-columns: repeat(3, 1fr);
+					grid-template-rows: repeat(3, minmax(var(--row-min-height), auto));
+					grid-template-areas:
+						'hero hero side-top'
+						'hero hero side-bottom'
+						'wide wide small';
+				}
+			}
+
+			.bento-item {
+				background: var(--bg-item);
+				border: 1px solid var(--border-item);
+				border-radius: var(--radius-item);
+				padding: var(--padding-item);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: system-ui, sans-serif;
+			}
+
+			/* Assign each box to its named grid area */
+			.hero {
+				grid-area: hero;
+			}
+			.side-top {
+				grid-area: side-top;
+			}
+			.side-bottom {
+				grid-area: side-bottom;
+			}
+			.wide {
+				grid-area: wide;
+			}
+			.small {
+				grid-area: small;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="bento-container">
+			<div class="bento-grid">
+				<div class="bento-item hero">Hero Feature (Large)</div>
+				<div class="bento-item side-top">Stat / Metric</div>
+				<div class="bento-item side-bottom">Quick Action</div>
+				<div class="bento-item wide">Wide Feature Banner</div>
+				<div class="bento-item small">Detail Card</div>
+			</div>
+		</div>
+	</body>
+</html>
